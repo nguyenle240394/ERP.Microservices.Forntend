@@ -121,3 +121,10 @@ g-zorro-antd with dynamic theming support (CSS variables).
   - Updated global styles (`styles.scss`) to override Ant Design components with the new primary color and 4px border radius.
   - Refactored `navigation` and `header` components to match the new layout structure.
   - Removed redundant profile section from the sidebar navigation.
+
+### [2026-06-27] - Implement Social Login and Fixes
+- **Description**: Implemented social login authorization setup, resolved Tailwind CSS warnings, and added route guards.
+- **Features Implemented**:
+  - Implemented basic Social Login UI setup.
+  - Fixed "Unknown at rule" SCSS lint warnings for `@tailwind` directives in IDE settings/configurations.
+  - Added and cleaned up unused parameters in `authGuard` for routing.

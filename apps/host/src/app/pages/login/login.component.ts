@@ -1,0 +1,19 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './login.component.html',
+})
+export class LoginComponent {
+  isEmailFocused = false;
+  isPasswordFocused = false;
+  
+  passwordType: 'password' | 'text' = 'password';
+
+  togglePasswordVisibility() {
+    this.passwordType = this.passwordType === 'password' ? 'text' : 'password';
+  }
+}

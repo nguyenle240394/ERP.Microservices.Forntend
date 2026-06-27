@@ -1,0 +1,126 @@
+<div class="min-h-screen w-full flex items-center justify-center p-4 md:p-8 bg-surface">
+  <!-- Login Container -->
+  <main class="w-full max-w-6xl bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex flex-col md:flex-row min-h-[650px]">
+    <!-- Left Side: Form -->
+    <section class="w-full md:w-1/2 p-margin-desktop md:p-12 flex flex-col justify-between">
+      <div>
+        <!-- Brand Anchor Logo -->
+        <div class="mb-12 flex items-center gap-3">
+          <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary">
+            <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+          </div>
+          <span class="font-headline-md text-headline-md text-primary font-bold">AdminPro</span>
+        </div>
+        <div class="mb-10">
+          <h1 class="font-headline-lg text-headline-lg text-on-background mb-2">Chào mừng trở lại!</h1>
+          <p class="font-body-md text-body-md text-secondary">Vui lòng đăng nhập để tiếp tục quản lý hệ thống doanh nghiệp của bạn.</p>
+        </div>
+        <!-- Login Form -->
+        <form class="space-y-6" (submit)="$event.preventDefault()">
+          <div class="space-y-2">
+            <label class="font-label-md text-label-md text-on-surface-variant" for="email">Địa chỉ Email</label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 transition-colors" 
+                    [class.text-primary]="isEmailFocused" 
+                    [class.text-outline]="!isEmailFocused"
+                    data-icon="mail">mail</span>
+              <input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
+                     id="email" name="email" placeholder="admin@adminpro.vn" type="email"
+                     (focus)="isEmailFocused = true" (blur)="isEmailFocused = false" />
+            </div>
+          </div>
+          <div class="space-y-2">
+            <label class="font-label-md text-label-md text-on-surface-variant" for="password">Mật khẩu</label>
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 transition-colors" 
+                    [class.text-primary]="isPasswordFocused" 
+                    [class.text-outline]="!isPasswordFocused"
+                    data-icon="lock">lock</span>
+              <input class="w-full pl-12 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
+                     id="password" name="password" placeholder="••••••••" [type]="passwordType"
+                     (focus)="isPasswordFocused = true" (blur)="isPasswordFocused = false" />
+              <button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button" (click)="togglePasswordVisibility()">
+                <span class="material-symbols-outlined" data-icon="visibility">{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</span>
+              </button>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <label class="flex items-center gap-2 cursor-pointer group">
+              <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+              <span class="font-body-sm text-body-sm text-secondary group-hover:text-on-surface">Ghi nhớ tôi</span>
+            </label>
+            <a class="font-label-md text-label-md text-primary hover:underline" href="javascript:void(0)">Quên mật khẩu?</a>
+          </div>
+          <button class="w-full py-4 bg-primary text-on-primary font-label-md text-label-md rounded-lg shadow-sm hover:bg-primary-fixed-dim hover:scale-[1.01] active:scale-[0.98] transition-all duration-200" type="submit">
+              Đăng nhập
+          </button>
+        </form>
+        <div class="mt-8 flex items-center gap-4">
+          <div class="flex-grow h-px bg-outline-variant"></div>
+          <span class="font-body-sm text-body-sm text-outline">Hoặc đăng nhập với</span>
+          <div class="flex-grow h-px bg-outline-variant"></div>
+        </div>
+        <div class="mt-6 grid grid-cols-2 gap-4">
+          <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-error" data-icon="google">google</span>
+            Google
+          </button>
+          <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
+            <span class="material-symbols-outlined text-[#1877F2]" data-icon="facebook">face_nod</span>
+            Facebook
+          </button>
+        </div>
+      </div>
+      <div class="mt-8">
+        <p class="font-body-sm text-body-sm text-secondary text-center">
+            Chưa có tài khoản? <a class="text-primary font-bold hover:underline" href="javascript:void(0)">Đăng ký ngay</a>
+        </p>
+      </div>
+    </section>
+    <!-- Right Side: Banner Illustration -->
+    <section class="hidden md:block w-1/2 relative overflow-hidden bg-primary">
+      <!-- Background Image with prompt -->
+      <div class="absolute inset-0 z-0 opacity-40 mix-blend-overlay">
+        <div class="w-full h-full bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCGqOEVeHWYNKtTMQcPtyRQRjCuhipo0tQaPnliTT8Jr3Yg3Zj9klrH6AaxCKQmDlax-B-zZqM35W0N4Vrywm3BgMwI7_wjLs22Hal3ekHqT1aEFPxzhxjUQ283TTmTbelter3FtCWW2yfImMuR4QJFjoLsHHN8HhqVKmZsr6eNXQUtigtsCPItZDrUS5ppGhRe4EfsKv7W6gpapVTh7ANknAyYR07xKvenW02epyxHYw5RQ0vj3aES-v8F-2hMsQBTuKD7aZq5DSo')">
+        </div>
+      </div>
+      <!-- Animated Shader Overlay for Atmosphere -->
+      <div class="relative z-10 h-full flex flex-col justify-center items-center p-12 text-center text-on-primary">
+        <div class="max-w-md">
+          <div class="mb-8 flex justify-center">
+            <div class="p-6 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20">
+              <span class="material-symbols-outlined text-[64px] leading-none" data-icon="analytics" style="font-variation-settings: 'FILL' 1;">analytics</span>
+            </div>
+          </div>
+          <h2 class="font-headline-xl text-headline-xl text-white mb-6">Giải pháp quản trị doanh nghiệp toàn diện</h2>
+          <p class="font-body-lg text-body-lg opacity-90 leading-relaxed">
+            Tối ưu hóa quy trình làm việc, phân tích dữ liệu chuyên sâu và nâng cao hiệu suất đội ngũ với nền tảng quản trị AdminPro.
+          </p>
+          <div class="mt-12 flex justify-center gap-2">
+            <div class="w-12 h-1.5 bg-on-primary rounded-full"></div>
+            <div class="w-2 h-1.5 bg-on-primary/30 rounded-full"></div>
+            <div class="w-2 h-1.5 bg-on-primary/30 rounded-full"></div>
+          </div>
+        </div>
+        <!-- Floating Decorative Elements -->
+        <div class="absolute bottom-12 right-12 p-6 glass-card rounded-xl border border-outline-variant shadow-lg animate-bounce duration-[3000ms]">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-tertiary-container flex items-center justify-center text-on-tertiary-container">
+              <span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+            </div>
+            <div class="text-left">
+              <p class="font-label-sm text-label-sm text-secondary">Tăng trưởng tháng này</p>
+              <p class="font-bold text-on-surface">+24.5%</p>
+            </div>
+          </div>
+        </div>
+        <div class="absolute top-20 left-12 p-4 glass-card rounded-xl border border-outline-variant shadow-lg animate-pulse">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary" data-icon="verified_user">verified_user</span>
+            <span class="font-label-md text-label-md text-on-surface">Bảo mật đa lớp</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
