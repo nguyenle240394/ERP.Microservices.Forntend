@@ -99,3 +99,16 @@ And join the Nx community:
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Change Log
+
+### [2026-06-27]
+- **Description**: Setup Tailwind CSS and Ant Design (
+g-zorro-antd) for the frontend monorepo.
+- **Features Implemented**:
+  - Integrated Tailwind CSS with Nx workspace.
+  - Configured 
+g-zorro-antd with dynamic theming support (CSS variables).
+  - Established a core Design System in styles.scss with centralized color palette (Indigo) and border radius (8px) using CSS variables.
+  - Overrode Ant Design components (Buttons, DatePickers, Cards) to follow the custom soft UI aesthetic.
+  - Initialized i_VN (Vietnamese) as the default language for Ant Design components.

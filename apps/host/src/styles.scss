@@ -1,1 +1,71 @@
 /* You can add global styles to this file, and also import other style files */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Color Palette */
+    --color-primary: #4f46e5;      /* Indigo 600 */
+    --color-primary-hover: #4338ca;/* Indigo 700 */
+    --color-secondary: #64748b;    /* Slate 500 */
+    --color-success: #10b981;      /* Emerald 500 */
+    --color-warning: #f59e0b;      /* Amber 500 */
+    --color-danger: #ef4444;       /* Red 500 */
+    --color-background: #f8fafc;   /* Slate 50 */
+    
+    /* Shapes & Borders */
+    --border-radius-base: 8px;     /* Soft border radius */
+    
+    /* Override Ant Design specific variables if applicable */
+    --ant-primary-color: var(--color-primary);
+    --ant-primary-color-hover: var(--color-primary-hover);
+    --ant-border-radius-base: var(--border-radius-base);
+  }
+}
+
+/* 
+  Override Ant Design components to make them softer and use our theme variables 
+  Using Tailwind's @apply where possible for simplicity.
+*/
+/* Buttons */
+.ant-btn {
+  border-radius: var(--border-radius-base) !important;
+  @apply transition-all duration-200 shadow-sm font-medium;
+}
+
+.ant-btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  @apply shadow-md transform -translate-y-px;
+}
+
+/* Inputs & Pickers */
+.ant-input,
+.ant-picker {
+  border-radius: var(--border-radius-base) !important;
+  @apply transition-all duration-200;
+}
+
+.ant-input:hover, .ant-input:focus,
+.ant-picker:hover, .ant-picker-focused {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.1) !important;
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background-color: var(--color-primary) !important;
+}
+
+/* Cards */
+.ant-card {
+  @apply rounded-xl shadow-sm border border-gray-100;
+}

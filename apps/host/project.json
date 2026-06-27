@@ -21,9 +21,15 @@
           {
             "glob": "**/*",
             "input": "apps/host/public"
+          },
+          {
+            "glob": "**/*",
+            "input": "node_modules/ng-zorro-antd/src/assets",
+            "output": "/assets/"
           }
         ],
         "styles": [
+          "node_modules/ng-zorro-antd/ng-zorro-antd.variable.min.css",
           "apps/host/src/styles.scss"
         ],
         "server": "apps/host/src/main.server.ts",

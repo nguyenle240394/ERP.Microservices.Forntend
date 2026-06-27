@@ -1,2 +1,19 @@
-<app-nx-welcome></app-nx-welcome>
+<div class="min-h-screen bg-background flex items-center justify-center p-6">
+  <div class="bg-white p-8 rounded-theme shadow-lg w-full max-w-md">
+    <h1 class="text-2xl font-bold mb-6 text-center text-primary">Ant Design + Tailwind CSS Theme</h1>
+    
+    <div class="flex flex-col gap-4">
+      <div>
+        <label class="block text-sm font-medium text-secondary mb-1">Chọn ngày bắt đầu (DatePicker):</label>
+        <nz-date-picker [(ngModel)]="date" class="w-full"></nz-date-picker>
+      </div>
+
+      <div class="mt-4 flex justify-between">
+        <button nz-button nzType="default">Hủy bỏ</button>
+        <button nz-button nzType="primary">Xác nhận chọn</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <router-outlet></router-outlet>
