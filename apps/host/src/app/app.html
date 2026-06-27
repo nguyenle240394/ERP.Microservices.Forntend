@@ -1,19 +1,43 @@
-<div class="min-h-screen bg-background flex items-center justify-center p-6">
-  <div class="bg-white p-8 rounded-theme shadow-lg w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-6 text-center text-primary">Ant Design + Tailwind CSS Theme</h1>
-    
-    <div class="flex flex-col gap-4">
-      <div>
-        <label class="block text-sm font-medium text-secondary mb-1">Chọn ngày bắt đầu (DatePicker):</label>
-        <nz-date-picker [(ngModel)]="date" class="w-full"></nz-date-picker>
-      </div>
+<div class="bg-background text-on-background font-sans min-h-screen flex">
+  
+  <!-- Sidebar -->
+  <aside 
+    class="h-screen fixed left-0 top-0 bg-surface border-r border-outline-variant shadow-sm flex flex-col py-base z-40 transition-all duration-300 overflow-hidden"
+    [ngClass]="{'w-[280px]': !isCollapsed, 'w-[80px]': isCollapsed}"
+  >
+    <lib-navigation [isCollapsed]="isCollapsed"></lib-navigation>
+  </aside>
 
-      <div class="mt-4 flex justify-between">
-        <button nz-button nzType="default">Hủy bỏ</button>
-        <button nz-button nzType="primary">Xác nhận chọn</button>
+  <!-- Main Content Shell -->
+  <div 
+    class="min-h-screen flex flex-col transition-all duration-300 w-full" 
+    [ngClass]="{'ml-[280px]': !isCollapsed, 'ml-[80px]': isCollapsed}"
+  >
+    <!-- Header -->
+    <header class="h-16 fixed top-0 right-0 z-30 transition-all duration-300 w-full" [ngStyle]="{'left': isCollapsed ? '80px' : '280px', 'width': isCollapsed ? 'calc(100% - 80px)' : 'calc(100% - 280px)'}">
+      <lib-header [isCollapsed]="isCollapsed" (toggleSidebar)="toggleSidebar()"></lib-header>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 mt-16 p-margin-desktop overflow-x-hidden">
+      <!-- Our current content with DatePicker and Button -->
+      <div class="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant w-full">
+        <div class="flex flex-col gap-4">
+          <div>
+            <p class="text-headline-md font-headline-md text-on-surface mb-4">Sample Form Component</p>
+            <nz-date-picker [(ngModel)]="date" class="w-full sm:w-64"></nz-date-picker>
+          </div>
+
+          <div class="mt-4 flex justify-start">
+            <button nz-button nzType="primary">Xác nhận chọn</button>
+          </div>
+        </div>
       </div>
-    </div>
+    </main>
+    
+    <!-- Footer -->
+    <footer class="w-full py-4 bg-surface-container border-t border-outline-variant flex justify-between items-center px-margin-desktop">
+      <lib-footer></lib-footer>
+    </footer>
   </div>
 </div>
-
-<router-outlet></router-outlet>

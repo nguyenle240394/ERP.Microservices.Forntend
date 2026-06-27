@@ -111,4 +111,13 @@ g-zorro-antd) for the frontend monorepo.
 g-zorro-antd with dynamic theming support (CSS variables).
   - Established a core Design System in styles.scss with centralized color palette (Indigo) and border radius (8px) using CSS variables.
   - Overrode Ant Design components (Buttons, DatePickers, Cards) to follow the custom soft UI aesthetic.
-  - Initialized i_VN (Vietnamese) as the default language for Ant Design components.
+  - Initialized  i_VN (Vietnamese) as the default language for Ant Design components.
+
+### [2026-06-27] - Update UI to Bright Admin Dashboard
+- **Description**: Rebuilt the frontend layout to match the new "Admin Dashboard Layout" from Stitch.
+- **Features Implemented**:
+  - Extracted and applied new Tailwind configuration (colors, border-radius, Hanken Grotesk typography) directly from the Stitch design system.
+  - Replaced the dark `nz-layout` based shell with a modern, bright HTML/Tailwind shell (`bg-surface`, `#006591` primary).
+  - Updated global styles (`styles.scss`) to override Ant Design components with the new primary color and 4px border radius.
+  - Refactored `navigation` and `header` components to match the new layout structure.
+  - Removed redundant profile section from the sidebar navigation.

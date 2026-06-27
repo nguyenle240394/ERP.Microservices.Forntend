@@ -1,0 +1,34 @@
+<!-- Brand Identity -->
+<div class="px-6 py-8 flex items-center gap-3">
+  <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
+    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+  </div>
+  @if (!isCollapsed) {
+    <div>
+      <h1 class="text-headline-md font-headline-md font-bold text-primary m-0">AdminPro</h1>
+      <p class="text-label-sm font-label-sm text-secondary opacity-70 m-0">Enterprise Suite</p>
+    </div>
+  }
+</div>
+
+<!-- Navigation Links -->
+<nav class="flex-1 px-3 space-y-1">
+  <a class="flex items-center gap-3 px-4 py-3 bg-primary-container/10 text-primary border-l-4 border-primary font-bold rounded-r-lg transition-all duration-200 ease-in-out cursor-pointer" href="#">
+    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+    @if (!isCollapsed) { <span class="font-body-md text-body-md">Dashboard</span> }
+  </a>
+  <a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container transition-all duration-200 ease-in-out group rounded-lg cursor-pointer border-l-4 border-transparent" href="#">
+    <span class="material-symbols-outlined group-hover:text-primary" data-icon="group">group</span>
+    @if (!isCollapsed) { <span class="font-body-md text-body-md">Quản lý người dùng</span> }
+  </a>
+  <a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container transition-all duration-200 ease-in-out group rounded-lg cursor-pointer border-l-4 border-transparent" href="#">
+    <span class="material-symbols-outlined group-hover:text-primary" data-icon="analytics">analytics</span>
+    @if (!isCollapsed) { <span class="font-body-md text-body-md">Báo cáo</span> }
+  </a>
+  <a class="flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container transition-all duration-200 ease-in-out group rounded-lg cursor-pointer border-l-4 border-transparent" href="#">
+    <span class="material-symbols-outlined group-hover:text-primary" data-icon="settings">settings</span>
+    @if (!isCollapsed) { <span class="font-body-md text-body-md">Cài đặt</span> }
+  </a>
+</nav>
+
+

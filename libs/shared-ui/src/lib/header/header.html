@@ -1,0 +1,37 @@
+
+<div class="h-16 w-full flex items-center justify-between px-margin-desktop bg-surface border-b border-outline-variant shadow-sm">
+  <div class="flex items-center gap-4">
+    <button nz-button nzType="text" (click)="toggleSidebar.emit()">
+      <span class="material-symbols-outlined text-secondary hover:text-primary transition-colors cursor-pointer" data-icon="menu">
+        @if (isCollapsed) { menu_open } @else { menu }
+      </span>
+    </button>
+    <h2 class="text-headline-md font-headline-md text-on-surface m-0 hidden sm:block">Dashboard</h2>
+  </div>
+
+  <!-- Actions Cluster -->
+  <div class="flex items-center gap-4">
+    <button class="hover:bg-surface-container rounded-full p-2 text-secondary cursor-pointer active:scale-95 transition-transform bg-transparent border-0 outline-none">
+      <span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+    </button>
+    <button class="hover:bg-surface-container rounded-full p-2 text-secondary cursor-pointer active:scale-95 transition-transform bg-transparent border-0 outline-none">
+      <span class="material-symbols-outlined" data-icon="settings">settings</span>
+    </button>
+    
+    <div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
+    
+    <div nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu" class="flex items-center gap-2 cursor-pointer hover:bg-surface-container py-1 px-2 rounded-lg transition-colors">
+      <nz-avatar nzIcon="user" class="w-8 h-8 rounded-full border border-outline-variant bg-primary text-white flex-shrink-0"></nz-avatar>
+      <span class="text-label-md font-label-md text-on-surface hidden sm:block">Profile</span>
+    </div>
+    
+    <nz-dropdown-menu #userMenu="nzDropdownMenu">
+      <ul nz-menu>
+        <li nz-menu-item>My Account</li>
+        <li nz-menu-item>Settings</li>
+        <li nz-menu-divider></li>
+        <li nz-menu-item nzDanger>Logout</li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>
