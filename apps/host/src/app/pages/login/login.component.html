@@ -18,15 +18,15 @@
         <!-- Login Form -->
         <form class="space-y-6" (submit)="$event.preventDefault()">
           <div class="space-y-2">
-            <label class="font-label-md text-label-md text-on-surface-variant" for="email">Địa chỉ Email</label>
+            <label class="font-label-md text-label-md text-on-surface-variant" for="username">Tên đăng nhập hoặc Email</label>
             <div class="relative">
               <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 transition-colors" 
-                    [class.text-primary]="isEmailFocused" 
-                    [class.text-outline]="!isEmailFocused"
-                    data-icon="mail">mail</span>
+                    [class.text-primary]="isUsernameFocused" 
+                    [class.text-outline]="!isUsernameFocused"
+                    data-icon="person">person</span>
               <input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
-                     id="email" name="email" placeholder="admin@adminpro.vn" type="email"
-                     (focus)="isEmailFocused = true" (blur)="isEmailFocused = false" />
+                     id="username" name="username" placeholder="Nhập tên đăng nhập hoặc email..." type="text"
+                     (focus)="isUsernameFocused = true" (blur)="isUsernameFocused = false" autocomplete="username" />
             </div>
           </div>
           <div class="space-y-2">
@@ -38,7 +38,7 @@
                     data-icon="lock">lock</span>
               <input class="w-full pl-12 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
                      id="password" name="password" placeholder="••••••••" [type]="passwordType"
-                     (focus)="isPasswordFocused = true" (blur)="isPasswordFocused = false" />
+                     (focus)="isPasswordFocused = true" (blur)="isPasswordFocused = false" autocomplete="current-password" />
               <button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button" (click)="togglePasswordVisibility()">
                 <span class="material-symbols-outlined" data-icon="visibility">{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</span>
               </button>
@@ -75,9 +75,11 @@
               Google
             </button>
             <!-- Invisible Google Button Overlay -->
-            <div class="absolute inset-0 opacity-0 z-10 flex items-center justify-center overflow-hidden [&>div]:w-full [&>div]:h-full cursor-pointer [&_iframe]:w-full [&_iframe]:h-full">
-               <asl-google-signin-button type="standard" size="large" theme="outline" text="signin_with" [width]="400"></asl-google-signin-button>
-            </div>
+            @if (isBrowser) {
+  <div class="absolute inset-0 opacity-0 z-10 flex items-center justify-center overflow-hidden [&>div]:w-full [&>div]:h-full cursor-pointer [&_iframe]:w-full [&_iframe]:h-full">
+    <asl-google-signin-button type="standard" size="large" theme="outline" text="signin_with" [width]="400"></asl-google-signin-button>
+  </div>
+}
           </div>
           <!-- Facebook Button -->
           <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
