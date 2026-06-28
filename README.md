@@ -128,3 +128,10 @@ g-zorro-antd with dynamic theming support (CSS variables).
   - Implemented basic Social Login UI setup.
   - Fixed "Unknown at rule" SCSS lint warnings for `@tailwind` directives in IDE settings/configurations.
   - Added and cleaned up unused parameters in `authGuard` for routing.
+
+### [2026-06-28] - Complete Google OAuth Integration & Fix Routing
+- **Description**: Finalized Google login flow and fixed frontend routing issues preventing access to the dashboard.
+- **Features Implemented**:
+  - Configured Google `ClientId` in `app.config.ts` for `@abacritt/angularx-social-login`.
+  - Updated `login.component.ts` to navigate to the layout/dashboard (`/`) and store `isAuthenticated` flag in `localStorage` upon successful authentication with the backend API.
+  - Refactored `auth.guard.ts` to check authentication state via `localStorage` instead of blocking all access, restoring access to the admin dashboard.

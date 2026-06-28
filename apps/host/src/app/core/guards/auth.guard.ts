@@ -5,8 +5,8 @@ export const authGuard: CanActivateFn = () => {
   const router = inject(Router);
   
   // TODO: Replace with actual authentication check from your AuthService/Store
-  // For demonstration, we assume the user is not authenticated
-  const isAuthenticated = false;
+  // For demonstration, we check a flag in localStorage
+  const isAuthenticated = typeof window !== 'undefined' && localStorage.getItem('isAuthenticated') === 'true';
 
   if (!isAuthenticated) {
     // Redirect to the login page

@@ -61,10 +61,9 @@
           <div class="flex-grow h-px bg-outline-variant"></div>
         </div>
         <div class="mt-6 grid grid-cols-2 gap-4">
-          <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
-            <span class="material-symbols-outlined text-error" data-icon="google">google</span>
-            Google
-          </button>
+          <div class="flex justify-center items-center w-full overflow-hidden border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+             <asl-google-signin-button type="standard" size="large" theme="outline" text="signin_with" [width]="400"></asl-google-signin-button>
+          </div>
           <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
             <span class="material-symbols-outlined text-[#1877F2]" data-icon="facebook">face_nod</span>
             Facebook
