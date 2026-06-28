@@ -138,3 +138,9 @@ g-zorro-antd with dynamic theming support (CSS variables).
 ### Update: 2026-06-28 20:51:19Z
 - **Changes made:** Updated Google Sign-In button UI in the login component.
 - **Features implemented:** Applied a transparent overlay CSS technique to seamlessly integrate the default Google iframe button over a custom-designed button to match the Facebook button UI.
+ 
+
+## [2026-06-29 00:43:00]
+- Fixed SVGTagNotFoundError by configuring provideNzIcons in app.config.ts.
+- Updated standard login endpoint to use /api/auth/login to fix backend 500 error.
+

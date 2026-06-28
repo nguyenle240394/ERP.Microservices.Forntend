@@ -9,6 +9,37 @@ import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SOCIAL_AUTH_CONFIG } from '@abacritt/angularx-social-login';
 
+import { provideNzIcons } from 'ng-zorro-antd/icon';
+import {
+  DashboardOutline,
+  UserOutline,
+  SettingOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  BellOutline,
+  DownOutline,
+  CalendarOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  LockOutline,
+  MailOutline
+} from '@ant-design/icons-angular/icons';
+
+const icons = [
+  DashboardOutline,
+  UserOutline,
+  SettingOutline,
+  MenuFoldOutline,
+  MenuUnfoldOutline,
+  BellOutline,
+  DownOutline,
+  CalendarOutline,
+  EyeOutline,
+  EyeInvisibleOutline,
+  LockOutline,
+  MailOutline
+];
+
 registerLocaleData(vi);
 
 export const appConfig: ApplicationConfig = {
@@ -19,6 +50,7 @@ export const appConfig: ApplicationConfig = {
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     provideNzI18n(vi_VN),
+    provideNzIcons(icons),
     {
       provide: SOCIAL_AUTH_CONFIG,
       useValue: {

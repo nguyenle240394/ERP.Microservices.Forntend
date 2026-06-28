@@ -16,7 +16,7 @@
           <p class="font-body-md text-body-md text-secondary">Vui lòng đăng nhập để tiếp tục quản lý hệ thống doanh nghiệp của bạn.</p>
         </div>
         <!-- Login Form -->
-        <form class="space-y-6" (submit)="$event.preventDefault()">
+        <form class="space-y-6" (submit)="login(); $event.preventDefault()">
           <div class="space-y-2">
             <label class="font-label-md text-label-md text-on-surface-variant" for="username">Tên đăng nhập hoặc Email</label>
             <div class="relative">
@@ -25,7 +25,7 @@
                     [class.text-outline]="!isUsernameFocused"
                     data-icon="person">person</span>
               <input class="w-full pl-12 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
-                     id="username" name="username" placeholder="Nhập tên đăng nhập hoặc email..." type="text"
+                     id="username" name="username" [(ngModel)]="username" placeholder="Nhập tên đăng nhập hoặc email..." type="text"
                      (focus)="isUsernameFocused = true" (blur)="isUsernameFocused = false" autocomplete="username" />
             </div>
           </div>
@@ -37,7 +37,7 @@
                     [class.text-outline]="!isPasswordFocused"
                     data-icon="lock">lock</span>
               <input class="w-full pl-12 pr-12 py-3 bg-surface-container-low border border-outline-variant rounded-lg font-body-md text-body-md focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all" 
-                     id="password" name="password" placeholder="••••••••" [type]="passwordType"
+                     id="password" name="password" [(ngModel)]="password" placeholder="••••••••" [type]="passwordType"
                      (focus)="isPasswordFocused = true" (blur)="isPasswordFocused = false" autocomplete="current-password" />
               <button class="absolute right-4 top-1/2 -translate-y-1/2 text-outline hover:text-primary transition-colors" type="button" (click)="togglePasswordVisibility()">
                 <span class="material-symbols-outlined" data-icon="visibility">{{ passwordType === 'password' ? 'visibility' : 'visibility_off' }}</span>
@@ -46,7 +46,7 @@
           </div>
           <div class="flex items-center justify-between">
             <label class="flex items-center gap-2 cursor-pointer group">
-              <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox"/>
+              <input class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary cursor-pointer" type="checkbox" name="rememberMe" [(ngModel)]="rememberMe"/>
               <span class="font-body-sm text-body-sm text-secondary group-hover:text-on-surface">Ghi nhớ tôi</span>
             </label>
             <a class="font-label-md text-label-md text-primary hover:underline" href="javascript:void(0)">Quên mật khẩu?</a>
