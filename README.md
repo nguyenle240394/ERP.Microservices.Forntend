@@ -156,3 +156,10 @@ g-zorro-antd with dynamic theming support (CSS variables).
 - Fixed a bug where Google login sessions persisted after logout by invoking `signOut()` via `SocialAuthService`.
 - Refactored API base URLs to utilize Angular environment variables (`environment.ts` and `environment.prod.ts`) to fix hardcoded localhost URLs.
 - Enhanced the "User Management" sidebar menu by adding an interactive accordion dropdown featuring "Accounts" and "Roles" submenus.
+
+## [2026-06-30] Refactor Navigation UI & Fix Menu Bugs
+- Refactored the Navigation component to match the Stitch design system (applied shadow depth and active state styling).
+- Fixed a routing issue where the submenu wouldn't collapse when clicking on other navigation links by utilizing the NavigationEnd router event.
+- Ensured the parent navigation automatically redirects to the default child route when expanded.
+- Resolved IDE accessibility (a11y) warnings by implementing keyboard event handlers and tabindex for custom interaction elements.
+- Created a new AGENTS rule to maintain consistent UI/UX behavior for nested navigation menus.

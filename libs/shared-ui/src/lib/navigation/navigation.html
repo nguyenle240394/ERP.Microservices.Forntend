@@ -1,62 +1,90 @@
 <!-- Brand Identity -->
 <div class="px-6 py-8 flex items-center gap-3">
-  <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-white">
-    <span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+  <div class="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary shadow-[0px_4px_20px_rgba(0,0,0,0.04)]">
+    <span class="material-symbols-outlined">dashboard</span>
   </div>
   @if (!isCollapsed) {
-    <div>
-      <h1 class="text-headline-md font-headline-md font-bold text-primary m-0">AdminPro</h1>
-      <p class="text-label-sm font-label-sm text-secondary opacity-70 m-0">Enterprise Suite</p>
+    <div class="flex flex-col">
+      <span class="font-headline-md text-headline-md text-primary font-bold">AdminPro</span>
     </div>
   }
 </div>
 
 <!-- Navigation Links -->
-<nav class="flex-1 px-3 space-y-1">
-  <a class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4"
-     [ngClass]="activeMenu === 'dashboard' ? 'bg-primary-container/10 text-primary border-primary font-bold rounded-r-lg' : 'text-secondary hover:bg-surface-container border-transparent rounded-lg group'"
-     (click)="setActiveMenu('dashboard')">
-    <span class="material-symbols-outlined group-hover:text-primary" data-icon="dashboard">dashboard</span>
-    @if (!isCollapsed) { <span class="font-body-md text-body-md">Dashboard</span> }
+<nav class="flex-1 px-4 space-y-2 overflow-y-auto mt-2 pb-4">
+
+  <!-- Dashboard -->
+  <a routerLink="/dashboard" routerLinkActive="!text-primary !border-primary font-bold bg-surface-container-low shadow-sm"
+     class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4 border-transparent text-secondary hover:bg-surface-container hover:text-on-surface rounded-lg group">
+    <span class="material-symbols-outlined transition-colors group-hover:text-primary">dashboard</span>
+    @if (!isCollapsed) { <span class="font-label-md text-label-md">Dashboard</span> }
   </a>
-  <!-- Quản lý người dùng with Submenu -->
+
+  <!-- Quản lý người dùng (with submenu) -->
   <div class="flex flex-col">
-    <div class="flex items-center justify-between px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4"
-         [ngClass]="(activeMenu === 'users' || activeMenu === 'accounts' || activeMenu === 'roles') ? 'bg-primary-container/5 text-primary border-primary/50 font-bold rounded-r-lg' : 'text-secondary hover:bg-surface-container border-transparent rounded-lg group'"
-         (click)="isUserMenuOpen = !isUserMenuOpen; setActiveMenu('users')">
+    <div class="flex items-center justify-between px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4 border-transparent text-secondary hover:bg-surface-container hover:text-on-surface rounded-lg group"
+         [class.!bg-surface-container-low]="isUserManagementActive"
+         [class.!text-primary]="isUserManagementActive"
+         [class.!border-primary]="isUserManagementActive"
+         [class.font-bold]="isUserManagementActive"
+         [class.shadow-sm]="isUserManagementActive"
+         tabindex="0"
+         (keydown.enter)="toggleUserMenu()"
+         (keydown.space)="toggleUserMenu(); $event.preventDefault()"
+         (click)="toggleUserMenu()">
       <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined group-hover:text-primary" data-icon="group">group</span>
-        @if (!isCollapsed) { <span class="font-body-md text-body-md">Quản lý người dùng</span> }
+        <span class="material-symbols-outlined transition-colors group-hover:text-primary">group</span>
+        @if (!isCollapsed) { <span class="font-label-md text-label-md">Quản lý người dùng</span> }
       </div>
       @if (!isCollapsed) {
-        <span class="material-symbols-outlined text-sm transition-transform duration-200" [class.rotate-180]="isUserMenuOpen">expand_more</span>
+        <span class="material-symbols-outlined text-sm transition-transform duration-200"
+          [class.rotate-180]="isUserMenuOpen">expand_more</span>
       }
     </div>
-    
-    <!-- Submenu items -->
+
     @if (!isCollapsed && isUserMenuOpen) {
-      <div class="flex flex-col pl-11 pr-4 mt-1 space-y-1">
-        <a class="block py-2 px-3 rounded transition-colors text-body-sm cursor-pointer" 
-           [ngClass]="activeMenu === 'accounts' ? 'bg-primary-container/10 text-primary font-bold' : 'text-secondary hover:text-primary hover:bg-surface-container/50'"
-           (click)="setActiveMenu('accounts')">Tài khoản</a>
-        <a class="block py-2 px-3 rounded transition-colors text-body-sm cursor-pointer" 
-           [ngClass]="activeMenu === 'roles' ? 'bg-primary-container/10 text-primary font-bold' : 'text-secondary hover:text-primary hover:bg-surface-container/50'"
-           (click)="setActiveMenu('roles')">Phân quyền</a>
+      <div class="flex flex-col pl-12 pr-2 mt-2 space-y-1">
+        <a routerLink="/user-management/accounts"
+           routerLinkActive="!text-primary font-bold bg-surface-container border-outline-variant shadow-[0px_2px_8px_rgba(0,0,0,0.04)]"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer text-secondary hover:text-on-surface hover:bg-surface-container-low border border-transparent">
+          <span class="material-symbols-outlined text-[18px]">manage_accounts</span>
+          <span class="font-body-sm text-body-sm">Tài khoản</span>
+        </a>
+        <a routerLink="/user-management/roles"
+           routerLinkActive="!text-primary font-bold bg-surface-container border-outline-variant shadow-[0px_2px_8px_rgba(0,0,0,0.04)]"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer text-secondary hover:text-on-surface hover:bg-surface-container-low border border-transparent">
+          <span class="material-symbols-outlined text-[18px]">admin_panel_settings</span>
+          <span class="font-body-sm text-body-sm">Phân quyền</span>
+        </a>
+        <a routerLink="/user-management/groups"
+           routerLinkActive="!text-primary font-bold bg-surface-container border-outline-variant shadow-[0px_2px_8px_rgba(0,0,0,0.04)]"
+           class="flex items-center gap-3 py-2.5 px-3 rounded-lg transition-all duration-200 cursor-pointer text-secondary hover:text-on-surface hover:bg-surface-container-low border border-transparent">
+          <span class="material-symbols-outlined text-[18px]">groups</span>
+          <span class="font-body-sm text-body-sm">Nhóm người dùng</span>
+        </a>
       </div>
     }
   </div>
-  <a class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4"
-     [ngClass]="activeMenu === 'reports' ? 'bg-primary-container/10 text-primary border-primary font-bold rounded-r-lg' : 'text-secondary hover:bg-surface-container border-transparent rounded-lg group'"
-     (click)="setActiveMenu('reports')">
-    <span class="material-symbols-outlined group-hover:text-primary" data-icon="analytics">analytics</span>
-    @if (!isCollapsed) { <span class="font-body-md text-body-md">Báo cáo</span> }
+
+  <!-- Đơn hàng -->
+  <a routerLink="/orders" routerLinkActive="!text-primary !border-primary font-bold bg-surface-container-low shadow-sm"
+     class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4 border-transparent text-secondary hover:bg-surface-container hover:text-on-surface rounded-lg group">
+    <span class="material-symbols-outlined transition-colors group-hover:text-primary">receipt_long</span>
+    @if (!isCollapsed) { <span class="font-label-md text-label-md">Đơn hàng</span> }
   </a>
-  <a class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4"
-     [ngClass]="activeMenu === 'settings' ? 'bg-primary-container/10 text-primary border-primary font-bold rounded-r-lg' : 'text-secondary hover:bg-surface-container border-transparent rounded-lg group'"
-     (click)="setActiveMenu('settings')">
-    <span class="material-symbols-outlined group-hover:text-primary" data-icon="settings">settings</span>
-    @if (!isCollapsed) { <span class="font-body-md text-body-md">Cài đặt</span> }
+
+  <!-- Báo cáo -->
+  <a routerLink="/reports" routerLinkActive="!text-primary !border-primary font-bold bg-surface-container-low shadow-sm"
+     class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4 border-transparent text-secondary hover:bg-surface-container hover:text-on-surface rounded-lg group">
+    <span class="material-symbols-outlined transition-colors group-hover:text-primary">analytics</span>
+    @if (!isCollapsed) { <span class="font-label-md text-label-md">Báo cáo</span> }
   </a>
+
+  <!-- Cài đặt -->
+  <a routerLink="/settings" routerLinkActive="!text-primary !border-primary font-bold bg-surface-container-low shadow-sm"
+     class="flex items-center gap-3 px-4 py-3 transition-all duration-200 ease-in-out cursor-pointer border-l-4 border-transparent text-secondary hover:bg-surface-container hover:text-on-surface rounded-lg group">
+    <span class="material-symbols-outlined transition-colors group-hover:text-primary">settings</span>
+    @if (!isCollapsed) { <span class="font-label-md text-label-md">Cài đặt</span> }
+  </a>
+
 </nav>
-
-

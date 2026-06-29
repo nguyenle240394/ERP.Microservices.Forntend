@@ -13,8 +13,27 @@ export const appRoutes: Route[] = [
     children: [
       {
         path: '',
+        redirectTo: 'dashboard',
+        pathMatch: 'full',
+      },
+      {
+        path: 'dashboard',
         loadComponent: () => import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
-      }
+      },
+      {
+        path: 'user-management',
+        children: [
+          {
+            path: 'accounts',
+            loadComponent: () => import('./pages/user-management/user-accounts/user-accounts.component').then(m => m.UserAccountsComponent),
+          },
+          {
+            path: '',
+            redirectTo: 'accounts',
+            pathMatch: 'full',
+          },
+        ],
+      },
     ],
   },
   {
