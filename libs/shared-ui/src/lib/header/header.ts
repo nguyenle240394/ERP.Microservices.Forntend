@@ -6,6 +6,7 @@ import { NzDropdownModule } from 'ng-zorro-antd/dropdown';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'lib-header',
@@ -18,5 +19,12 @@ export class Header {
   @Output() toggleSidebar = new EventEmitter<void>();
 
   authService = inject(AuthService);
+  private router = inject(Router);
+
   currentUser$ = this.authService.currentUser$;
+
+  logout() {
+    this.authService.setCurrentUser(null);
+    this.router.navigate(['/login']);
+  }
 }

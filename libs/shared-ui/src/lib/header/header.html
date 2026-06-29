@@ -35,7 +35,7 @@
         <li nz-menu-item>My Account</li>
         <li nz-menu-item>Settings</li>
         <li nz-menu-divider></li>
-        <li nz-menu-item nzDanger>Logout</li>
+        <li nz-menu-item nzDanger tabindex="0" (click)="logout()" (keydown.enter)="logout()">Logout</li>
       </ul>
     </nz-dropdown-menu>
   </div>
