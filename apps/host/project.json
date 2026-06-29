@@ -65,6 +65,12 @@
       "continuous": true,
       "executor": "@angular/build:dev-server",
       "defaultConfiguration": "development",
+      "options": {
+        "headers": {
+          "Cross-Origin-Opener-Policy": "unsafe-none",
+          "Cross-Origin-Embedder-Policy": "unsafe-none"
+        }
+      },
       "configurations": {
         "production": {
           "buildTarget": "host:build:production"

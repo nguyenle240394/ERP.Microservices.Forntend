@@ -21,8 +21,13 @@
     <div class="h-8 w-[1px] bg-outline-variant mx-2"></div>
     
     <div nz-dropdown nzTrigger="click" [nzDropdownMenu]="userMenu" class="flex items-center gap-2 cursor-pointer hover:bg-surface-container py-1 px-2 rounded-lg transition-colors">
-      <nz-avatar nzIcon="user" class="w-8 h-8 rounded-full border border-outline-variant bg-primary text-white flex-shrink-0"></nz-avatar>
-      <span class="text-label-md font-label-md text-on-surface hidden sm:block">Profile</span>
+      @if (currentUser$ | async; as user) {
+        <nz-avatar [nzText]="(user.name?.charAt(0) || user.userName?.charAt(0) || 'U') | uppercase" class="w-8 h-8 rounded-full border border-outline-variant bg-primary text-white flex-shrink-0 flex items-center justify-center font-bold"></nz-avatar>
+        <span class="text-label-md font-label-md text-on-surface hidden sm:block">{{ user.name || user.userName }}</span>
+      } @else {
+        <nz-avatar nzIcon="user" class="w-8 h-8 rounded-full border border-outline-variant bg-primary text-white flex-shrink-0"></nz-avatar>
+        <span class="text-label-md font-label-md text-on-surface hidden sm:block">Profile</span>
+      }
     </div>
     
     <nz-dropdown-menu #userMenu="nzDropdownMenu">

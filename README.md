@@ -144,3 +144,9 @@ g-zorro-antd with dynamic theming support (CSS variables).
 - Fixed SVGTagNotFoundError by configuring provideNzIcons in app.config.ts.
 - Updated standard login endpoint to use /api/auth/login to fix backend 500 error.
 
+
+## [2026-06-29 11:37:00] Fix Login Hanging and COOP Issues
+- Fixed Google Login (Cross-Origin-Opener-Policy) by configuring \unsafe-none\ headers for the Vite dev-server in \project.json\.
+- Refactored \AuthService\ to provide \setCurrentUser\ and bypass calling \pplication-configuration\ during the login flow to prevent a bug where the backend reports unauthenticated state (due to missing Bearer configuration for cookies).
+- Fixed a change detection bug in \login.component.ts\ by utilizing \ChangeDetectorRef\ to force UI updates when login completes, resolving the infinitely spinning button issue.
+- Typed all HTTP response parameters to remove ESLint \ny\ type warnings.
