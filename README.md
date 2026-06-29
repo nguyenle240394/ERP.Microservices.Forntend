@@ -147,6 +147,12 @@ g-zorro-antd with dynamic theming support (CSS variables).
 
 ## [2026-06-29 11:37:00] Fix Login Hanging and COOP Issues
 - Fixed Google Login (Cross-Origin-Opener-Policy) by configuring \unsafe-none\ headers for the Vite dev-server in \project.json\.
-- Refactored \AuthService\ to provide \setCurrentUser\ and bypass calling \pplication-configuration\ during the login flow to prevent a bug where the backend reports unauthenticated state (due to missing Bearer configuration for cookies).
+- Refactored \AuthService\ to provide \setCurrentUser\ and bypass calling \ pplication-configuration\ during the login flow to prevent a bug where the backend reports unauthenticated state (due to missing Bearer configuration for cookies).
 - Fixed a change detection bug in \login.component.ts\ by utilizing \ChangeDetectorRef\ to force UI updates when login completes, resolving the infinitely spinning button issue.
-- Typed all HTTP response parameters to remove ESLint \ny\ type warnings.
+- Typed all HTTP response parameters to remove ESLint \ ny\ type warnings.
+
+## [2026-06-29 17:15:00] UI/UX Improvements and Auth Fixes
+- Implemented dynamic active state highlighting for navigation menus to improve UX.
+- Fixed a bug where Google login sessions persisted after logout by invoking `signOut()` via `SocialAuthService`.
+- Refactored API base URLs to utilize Angular environment variables (`environment.ts` and `environment.prod.ts`) to fix hardcoded localhost URLs.
+- Enhanced the "User Management" sidebar menu by adding an interactive accordion dropdown featuring "Accounts" and "Roles" submenus.

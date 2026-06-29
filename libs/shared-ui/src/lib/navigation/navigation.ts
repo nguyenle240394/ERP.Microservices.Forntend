@@ -11,4 +11,10 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 })
 export class Navigation {
   @Input() isCollapsed = false;
+  isUserMenuOpen = false;
+  activeMenu = 'dashboard';
+
+  setActiveMenu(menu: string) {
+    this.activeMenu = menu;
+  }
 }
