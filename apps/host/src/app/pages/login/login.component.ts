@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, inject, PLATFORM_ID } from '@angular/core
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { SocialAuthService, GoogleSigninButtonModule } from '@abacritt/angularx-social-login';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from 'rxjs';
+import { Subscription, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   username = '';
   password = '';
   rememberMe = false;
+  isLoading = false;
   
   private authSubscription!: Subscription;
   private authService = inject(SocialAuthService);
@@ -34,7 +35,9 @@ export class LoginComponent implements OnInit, OnDestroy {
       this.authSubscription = this.authService.authState.subscribe((user) => {
         if (user) {
           console.log('Google User:', user);
+          this.isLoading = true;
           this.http.post('https://localhost:44317/api/account/google-login', { idToken: user.idToken }, { withCredentials: true })
+            .pipe(finalize(() => { this.isLoading = false; }))
             .subscribe({
               next: (res: unknown) => {
                 console.log('Backend response:', res);
@@ -73,8 +76,11 @@ export class LoginComponent implements OnInit, OnDestroy {
       rememberMe: this.rememberMe 
     };
 
+    this.isLoading = true;
+
     // NOTE: Cập nhật URL endpoint theo API backend của bạn
     this.http.post('https://localhost:44317/api/auth/login', payload, { withCredentials: true })
+      .pipe(finalize(() => { this.isLoading = false; }))
       .subscribe({
         next: (res: unknown) => {
           console.log('Login success:', res);
