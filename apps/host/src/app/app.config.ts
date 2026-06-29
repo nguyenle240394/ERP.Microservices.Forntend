@@ -8,6 +8,9 @@ import { provideNzI18n, vi_VN } from 'ng-zorro-antd/i18n';
 import { registerLocaleData } from '@angular/common';
 import vi from '@angular/common/locales/vi';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SOCIAL_AUTH_CONFIG } from '@abacritt/angularx-social-login';
+import { environment } from '../environments/environment';
+import { API_URL } from '@frontend/shared-ui';
+
 
 import { provideNzIcons } from 'ng-zorro-antd/icon';
 import {
@@ -70,6 +73,10 @@ export const appConfig: ApplicationConfig = {
           console.error(err);
         }
       } as SocialAuthServiceConfig
+    },
+    {
+      provide: API_URL,
+      useValue: environment.apiUrl
     }
   ]
 };

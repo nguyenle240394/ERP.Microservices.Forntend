@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthService as AppAuthService, CurrentUser } from '@frontend/shared-ui';
+import { environment } from '../../../environments/environment';
 
 interface LoginResponse {
   message?: string;
@@ -47,7 +48,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         if (user) {
           console.log('Google User:', user);
           this.isLoading = true;
-          this.http.post('https://localhost:44317/api/account/google-login', { idToken: user.idToken }, { withCredentials: true })
+          this.http.post(`${environment.apiUrl}/api/account/google-login`, { idToken: user.idToken }, { withCredentials: true })
             .subscribe({
               next: (res: LoginResponse) => {
                 console.log('Backend response:', res);
@@ -98,7 +99,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     console.log('Sending login request to backend...', payload);
 
     // NOTE: Cập nhật URL endpoint theo API backend của bạn
-    this.http.post('https://localhost:44317/api/auth/login', payload, { withCredentials: true })
+    this.http.post(`${environment.apiUrl}/api/auth/login`, payload, { withCredentials: true })
       .subscribe({
         next: (res: LoginResponse) => {
           console.log('Login success:', res);

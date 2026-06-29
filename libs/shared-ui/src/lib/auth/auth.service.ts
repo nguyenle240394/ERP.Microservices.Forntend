@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable, inject, InjectionToken } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 
@@ -15,17 +15,20 @@ export interface AbpApplicationConfiguration {
   currentUser: CurrentUser;
 }
 
+export const API_URL = new InjectionToken<string>('API_URL');
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private http = inject(HttpClient);
+  private apiUrl = inject(API_URL);
   
   private currentUserSubject = new BehaviorSubject<CurrentUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   public loadCurrentUser() {
-    return this.http.get<AbpApplicationConfiguration>('https://localhost:44317/api/abp/application-configuration', { withCredentials: true })
+    return this.http.get<AbpApplicationConfiguration>(`${this.apiUrl}/api/abp/application-configuration`, { withCredentials: true })
       .pipe(
         tap(config => {
           if (config.currentUser && config.currentUser.isAuthenticated) {
