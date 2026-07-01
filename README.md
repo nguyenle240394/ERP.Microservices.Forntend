@@ -163,3 +163,8 @@ g-zorro-antd with dynamic theming support (CSS variables).
 - Ensured the parent navigation automatically redirects to the default child route when expanded.
 - Resolved IDE accessibility (a11y) warnings by implementing keyboard event handlers and tabindex for custom interaction elements.
 - Created a new AGENTS rule to maintain consistent UI/UX behavior for nested navigation menus.
+
+### [2026-07-01] Dockerize Frontend and Setup Nginx
+- **Dockerization:** Created a Dockerfile to build the Angular/Nx frontend.
+- **Nginx Configuration:** Customized Nginx configuration (`nginx.conf`) to properly serve the frontend and support Angular Prerender/SSR fallback.
+- **Nx Configuration:** Modified `apps/host/project.json` to support the deployment and build process.
