@@ -99,3 +99,72 @@ And join the Nx community:
 - [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
 - [Our Youtube channel](https://www.youtube.com/@nxdevtools)
 - [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+
+## Change Log
+
+### [2026-06-27]
+- **Description**: Setup Tailwind CSS and Ant Design (
+g-zorro-antd) for the frontend monorepo.
+- **Features Implemented**:
+  - Integrated Tailwind CSS with Nx workspace.
+  - Configured 
+g-zorro-antd with dynamic theming support (CSS variables).
+  - Established a core Design System in styles.scss with centralized color palette (Indigo) and border radius (8px) using CSS variables.
+  - Overrode Ant Design components (Buttons, DatePickers, Cards) to follow the custom soft UI aesthetic.
+  - Initialized  i_VN (Vietnamese) as the default language for Ant Design components.
+
+### [2026-06-27] - Update UI to Bright Admin Dashboard
+- **Description**: Rebuilt the frontend layout to match the new "Admin Dashboard Layout" from Stitch.
+- **Features Implemented**:
+  - Extracted and applied new Tailwind configuration (colors, border-radius, Hanken Grotesk typography) directly from the Stitch design system.
+  - Replaced the dark `nz-layout` based shell with a modern, bright HTML/Tailwind shell (`bg-surface`, `#006591` primary).
+  - Updated global styles (`styles.scss`) to override Ant Design components with the new primary color and 4px border radius.
+  - Refactored `navigation` and `header` components to match the new layout structure.
+  - Removed redundant profile section from the sidebar navigation.
+
+### [2026-06-27] - Implement Social Login and Fixes
+- **Description**: Implemented social login authorization setup, resolved Tailwind CSS warnings, and added route guards.
+- **Features Implemented**:
+  - Implemented basic Social Login UI setup.
+  - Fixed "Unknown at rule" SCSS lint warnings for `@tailwind` directives in IDE settings/configurations.
+  - Added and cleaned up unused parameters in `authGuard` for routing.
+
+### [2026-06-28] - Complete Google OAuth Integration & Fix Routing
+- **Description**: Finalized Google login flow and fixed frontend routing issues preventing access to the dashboard.
+- **Features Implemented**:
+  - Configured Google `ClientId` in `app.config.ts` for `@abacritt/angularx-social-login`.
+  - Updated `login.component.ts` to navigate to the layout/dashboard (`/`) and store `isAuthenticated` flag in `localStorage` upon successful authentication with the backend API.
+  - Refactored `auth.guard.ts` to check authentication state via `localStorage` instead of blocking all access, restoring access to the admin dashboard.
+### Update: 2026-06-28 20:51:19Z
+- **Changes made:** Updated Google Sign-In button UI in the login component.
+- **Features implemented:** Applied a transparent overlay CSS technique to seamlessly integrate the default Google iframe button over a custom-designed button to match the Facebook button UI.
+ 
+
+## [2026-06-29 00:43:00]
+- Fixed SVGTagNotFoundError by configuring provideNzIcons in app.config.ts.
+- Updated standard login endpoint to use /api/auth/login to fix backend 500 error.
+
+
+## [2026-06-29 11:37:00] Fix Login Hanging and COOP Issues
+- Fixed Google Login (Cross-Origin-Opener-Policy) by configuring \unsafe-none\ headers for the Vite dev-server in \project.json\.
+- Refactored \AuthService\ to provide \setCurrentUser\ and bypass calling \ pplication-configuration\ during the login flow to prevent a bug where the backend reports unauthenticated state (due to missing Bearer configuration for cookies).
+- Fixed a change detection bug in \login.component.ts\ by utilizing \ChangeDetectorRef\ to force UI updates when login completes, resolving the infinitely spinning button issue.
+- Typed all HTTP response parameters to remove ESLint \ ny\ type warnings.
+
+## [2026-06-29 17:15:00] UI/UX Improvements and Auth Fixes
+- Implemented dynamic active state highlighting for navigation menus to improve UX.
+- Fixed a bug where Google login sessions persisted after logout by invoking `signOut()` via `SocialAuthService`.
+- Refactored API base URLs to utilize Angular environment variables (`environment.ts` and `environment.prod.ts`) to fix hardcoded localhost URLs.
+- Enhanced the "User Management" sidebar menu by adding an interactive accordion dropdown featuring "Accounts" and "Roles" submenus.
+
+## [2026-06-30] Refactor Navigation UI & Fix Menu Bugs
+- Refactored the Navigation component to match the Stitch design system (applied shadow depth and active state styling).
+- Fixed a routing issue where the submenu wouldn't collapse when clicking on other navigation links by utilizing the NavigationEnd router event.
+- Ensured the parent navigation automatically redirects to the default child route when expanded.
+- Resolved IDE accessibility (a11y) warnings by implementing keyboard event handlers and tabindex for custom interaction elements.
+- Created a new AGENTS rule to maintain consistent UI/UX behavior for nested navigation menus.
+
+### [2026-07-01] Dockerize Frontend and Setup Nginx
+- **Dockerization:** Created a Dockerfile to build the Angular/Nx frontend.
+- **Nginx Configuration:** Customized Nginx configuration (`nginx.conf`) to properly serve the frontend and support Angular Prerender/SSR fallback.
+- **Nx Configuration:** Modified `apps/host/project.json` to support the deployment and build process.

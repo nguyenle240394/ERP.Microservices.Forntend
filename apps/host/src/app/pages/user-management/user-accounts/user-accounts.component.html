@@ -1,0 +1,311 @@
+<div class="space-y-stack-lg">
+
+  <!-- Page Header -->
+  <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+    <div>
+      <h2 class="text-headline-lg font-bold text-on-surface">Quản lý tài khoản</h2>
+      <p class="text-body-sm text-secondary mt-1">Quản lý toàn bộ tài khoản người dùng trong hệ thống</p>
+    </div>
+    <div class="flex items-center gap-3">
+      <button class="flex items-center gap-2 px-4 py-2.5 rounded-lg border border-outline-variant text-secondary hover:bg-surface-container transition-colors text-body-sm font-semibold">
+        <span class="material-symbols-outlined text-[18px]">file_download</span>
+        Xuất dữ liệu
+      </button>
+      <button (click)="showAddModal = true"
+        class="bg-primary text-on-primary px-5 py-2.5 rounded-lg flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm text-body-sm font-semibold">
+        <span class="material-symbols-outlined text-[18px]">person_add</span>
+        Thêm tài khoản
+      </button>
+    </div>
+  </div>
+
+  <!-- Stat Cards -->
+  <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+    @for (stat of stats; track stat.label) {
+      <div class="bg-surface-container-lowest rounded-xl border border-outline-variant p-5 shadow-[0px_2px_8px_rgba(0,0,0,0.04)]">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-[11px] text-secondary font-semibold uppercase tracking-wider">{{ stat.label }}</p>
+          <div class="w-9 h-9 rounded-lg flex items-center justify-center {{ stat.colorClass }}">
+            <span class="material-symbols-outlined text-[20px]">{{ stat.icon }}</span>
+          </div>
+        </div>
+        <p class="text-headline-lg font-bold text-on-surface">{{ stat.value }}</p>
+        <p class="text-body-sm mt-1 flex items-center gap-1 {{ stat.trendColor }}">
+          @if (stat.trendIcon) {
+            <span class="material-symbols-outlined text-[14px]">{{ stat.trendIcon }}</span>
+          }
+          {{ stat.trend }}
+        </p>
+      </div>
+    }
+  </div>
+
+  <!-- Table Card -->
+  <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0px_4px_20px_rgba(0,0,0,0.04)] overflow-hidden">
+
+    <!-- Toolbar -->
+    <div class="p-gutter border-b border-outline-variant flex flex-col sm:flex-row gap-4 items-center justify-between bg-surface-bright">
+      <!-- Search -->
+      <div class="relative w-full sm:max-w-sm">
+        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+        <input
+          [(ngModel)]="searchText"
+          type="text"
+          placeholder="Tìm tên, email, mã người dùng..."
+          class="w-full pl-10 pr-4 py-2 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-shadow"/>
+      </div>
+      <!-- Filters -->
+      <div class="flex items-center gap-2 flex-wrap">
+        <div class="relative">
+          <select [(ngModel)]="selectedRole"
+            class="appearance-none pl-4 pr-8 py-2 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-body-sm cursor-pointer">
+            <option value="">Tất cả vai trò</option>
+            @for (r of roles; track r) { <option [value]="r">{{ r }}</option> }
+          </select>
+          <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-secondary pointer-events-none text-[16px]">expand_more</span>
+        </div>
+        <div class="relative">
+          <select [(ngModel)]="selectedStatus"
+            class="appearance-none pl-4 pr-8 py-2 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:border-primary text-body-sm cursor-pointer">
+            <option value="">Tất cả trạng thái</option>
+            @for (s of statusOptions; track s.value) { <option [value]="s.value">{{ s.label }}</option> }
+          </select>
+          <span class="material-symbols-outlined absolute right-2 top-1/2 -translate-y-1/2 text-secondary pointer-events-none text-[16px]">expand_more</span>
+        </div>
+        <button (click)="resetFilters()" title="Đặt lại bộ lọc"
+          class="p-2 border border-outline-variant rounded-lg hover:bg-surface-container text-secondary transition-colors">
+          <span class="material-symbols-outlined text-[20px]">filter_list_off</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bulk Action Bar -->
+    @if (selectedCount() > 0) {
+      <div class="bg-primary/5 border-b border-primary/20 px-gutter py-3 flex items-center gap-4">
+        <span class="text-body-sm font-semibold text-primary">{{ selectedCount() }} được chọn</span>
+        <div class="flex items-center gap-2 ml-auto">
+          <button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-secondary hover:bg-surface-container text-body-sm border border-outline-variant transition-colors">
+            <span class="material-symbols-outlined text-[16px]">block</span> Vô hiệu hóa
+          </button>
+          <button class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-error hover:bg-error-container/30 text-body-sm border border-error/30 transition-colors">
+            <span class="material-symbols-outlined text-[16px]">delete</span> Xóa
+          </button>
+        </div>
+      </div>
+    }
+
+    <!-- Table -->
+    <div class="overflow-x-auto">
+      <table class="w-full text-left border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant bg-surface-container-low text-[11px] text-secondary uppercase tracking-wider font-semibold">
+            <th class="p-4 pl-gutter w-10">
+              <input type="checkbox"
+                [checked]="allChecked"
+                [indeterminate]="indeterminate"
+                (change)="toggleAll($any($event.target).checked)"
+                class="rounded border-outline-variant text-primary focus:ring-primary cursor-pointer"/>
+            </th>
+            <th class="p-4">Họ tên</th>
+            <th class="p-4">Email</th>
+            <th class="p-4">Vai trò</th>
+            <th class="p-4">Trạng thái</th>
+            <th class="p-4">Ngày tạo</th>
+            <th class="p-4">Đăng nhập cuối</th>
+            <th class="p-4 pr-gutter text-right">Thao tác</th>
+          </tr>
+        </thead>
+        <tbody class="text-body-md text-on-surface divide-y divide-outline-variant">
+          @for (user of filteredUsers(); track user.id) {
+            <tr class="hover:bg-surface-bright transition-colors group">
+              <!-- Checkbox -->
+              <td class="p-4 pl-gutter">
+                <input type="checkbox" [checked]="user.selected" (change)="toggleSelect(user.id)"
+                  class="rounded border-outline-variant text-primary focus:ring-primary cursor-pointer"/>
+              </td>
+              <!-- Name -->
+              <td class="p-4">
+                <div class="flex items-center gap-3">
+                  <div class="w-9 h-9 rounded-full flex items-center justify-center font-bold text-sm flex-shrink-0"
+                    [ngClass]="getAvatarClass(user.roleType)">
+                    {{ user.initials }}
+                  </div>
+                  <div>
+                    <p class="font-semibold text-on-surface leading-tight">{{ user.fullName }}</p>
+                    <p class="text-[11px] text-secondary">#{{ user.id }}</p>
+                  </div>
+                </div>
+              </td>
+              <!-- Email -->
+              <td class="p-4 text-secondary text-body-sm">{{ user.email }}</td>
+              <!-- Role -->
+              <td class="p-4">
+                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold"
+                  [ngClass]="getRoleBadgeClass(user.roleType)">
+                  {{ user.role }}
+                </span>
+              </td>
+              <!-- Status -->
+              <td class="p-4">
+                <span class="inline-flex items-center gap-1.5 text-body-sm font-medium"
+                  [ngClass]="getStatusConfig(user.status).textClass">
+                  <span class="w-2 h-2 rounded-full flex-shrink-0"
+                    [ngClass]="getStatusConfig(user.status).dotClass"></span>
+                  {{ getStatusConfig(user.status).label }}
+                </span>
+              </td>
+              <!-- Created -->
+              <td class="p-4 text-secondary text-body-sm">{{ user.createdDate }}</td>
+              <!-- Last login -->
+              <td class="p-4 text-secondary text-body-sm">{{ user.lastLogin }}</td>
+              <!-- Actions -->
+              <td class="p-4 pr-gutter text-right">
+                <div class="flex items-center justify-end gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <button class="p-1.5 text-secondary hover:text-primary hover:bg-primary/10 rounded-md transition-colors" title="Xem chi tiết">
+                    <span class="material-symbols-outlined text-[18px]">visibility</span>
+                  </button>
+                  <button class="p-1.5 text-secondary hover:text-primary hover:bg-primary/10 rounded-md transition-colors" title="Chỉnh sửa">
+                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                  </button>
+                  <button class="p-1.5 text-secondary hover:text-error hover:bg-error-container/50 rounded-md transition-colors" title="Xóa">
+                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+          @empty {
+            <tr>
+              <td colspan="8" class="py-16 text-center">
+                <span class="material-symbols-outlined text-[48px] text-outline">search_off</span>
+                <p class="mt-3 text-on-surface font-semibold">Không tìm thấy kết quả</p>
+                <p class="text-secondary text-body-sm mt-1">Thử thay đổi từ khóa hoặc bộ lọc của bạn</p>
+                <button (click)="resetFilters()" class="mt-4 text-primary text-body-sm hover:underline">Xóa bộ lọc</button>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Pagination -->
+    <div class="p-4 border-t border-outline-variant flex flex-col sm:flex-row items-center justify-between gap-3 text-body-sm text-secondary bg-surface-bright">
+      <div class="flex items-center gap-2">
+        <span>Hiển thị</span>
+        <div class="relative">
+          <select [(ngModel)]="pageSize"
+            class="appearance-none border border-outline-variant rounded px-3 py-1 text-body-sm bg-surface focus:outline-none focus:border-primary cursor-pointer pr-6">
+            <option [value]="10">10</option>
+            <option [value]="25">25</option>
+            <option [value]="50">50</option>
+          </select>
+          <span class="material-symbols-outlined absolute right-1 top-1/2 -translate-y-1/2 pointer-events-none text-[14px]">expand_more</span>
+        </div>
+        <span>/ 1.248 tài khoản</span>
+      </div>
+      <div class="flex items-center gap-1">
+        <button class="p-1.5 border border-outline-variant rounded hover:bg-surface-container disabled:opacity-40 transition-colors" disabled>
+          <span class="material-symbols-outlined text-[16px]">first_page</span>
+        </button>
+        <button class="p-1.5 border border-outline-variant rounded hover:bg-surface-container disabled:opacity-40 transition-colors" disabled>
+          <span class="material-symbols-outlined text-[16px]">chevron_left</span>
+        </button>
+        <button class="w-8 h-8 flex items-center justify-center border border-primary bg-primary/10 text-primary font-bold rounded text-body-sm">1</button>
+        <button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container text-body-sm">2</button>
+        <button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container text-body-sm">3</button>
+        <span class="px-1">...</span>
+        <button class="w-8 h-8 flex items-center justify-center border border-outline-variant rounded hover:bg-surface-container text-body-sm">125</button>
+        <button class="p-1.5 border border-outline-variant rounded hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+        </button>
+        <button class="p-1.5 border border-outline-variant rounded hover:bg-surface-container transition-colors">
+          <span class="material-symbols-outlined text-[16px]">last_page</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== MODAL: Thêm tài khoản ===== -->
+@if (showAddModal) {
+  <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-sm"
+    (click)="showAddModal = false">
+    <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-2xl w-full max-w-lg mx-4"
+      (click)="$event.stopPropagation()">
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between px-gutter py-4 border-b border-outline-variant">
+        <h3 class="text-headline-md font-bold text-on-surface">Thêm tài khoản mới</h3>
+        <button (click)="showAddModal = false"
+          class="p-2 hover:bg-surface-container rounded-full text-secondary transition-colors">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <!-- Modal Body -->
+      <div class="px-gutter py-stack-lg space-y-4">
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Họ <span class="text-error">*</span></label>
+            <input [(ngModel)]="newUser.firstName" type="text" placeholder="Nguyễn"
+              class="w-full px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-shadow"/>
+          </div>
+          <div>
+            <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Tên <span class="text-error">*</span></label>
+            <input [(ngModel)]="newUser.lastName" type="text" placeholder="Văn A"
+              class="w-full px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-shadow"/>
+          </div>
+        </div>
+        <div>
+          <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Email <span class="text-error">*</span></label>
+          <input [(ngModel)]="newUser.email" type="email" placeholder="ten@adminpro.vn"
+            class="w-full px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-shadow"/>
+        </div>
+        <div>
+          <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Số điện thoại</label>
+          <input [(ngModel)]="newUser.phone" type="tel" placeholder="0900 000 000"
+            class="w-full px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary text-body-md transition-shadow"/>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Vai trò <span class="text-error">*</span></label>
+            <div class="relative">
+              <select [(ngModel)]="newUser.role"
+                class="w-full appearance-none px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary text-body-md cursor-pointer">
+                <option value="">Chọn vai trò</option>
+                @for (r of roles; track r) { <option [value]="r">{{ r }}</option> }
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none text-[18px]">expand_more</span>
+            </div>
+          </div>
+          <div>
+            <label class="block text-body-sm font-semibold text-on-surface mb-1.5">Trạng thái</label>
+            <div class="relative">
+              <select [(ngModel)]="newUser.status"
+                class="w-full appearance-none px-4 py-2.5 border border-outline-variant rounded-lg bg-surface focus:outline-none focus:border-primary text-body-md cursor-pointer">
+                <option value="active">Hoạt động</option>
+                <option value="disabled">Vô hiệu hóa</option>
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none text-[18px]">expand_more</span>
+            </div>
+          </div>
+        </div>
+        <!-- Info note -->
+        <div class="flex items-start gap-2 p-3 bg-primary/5 rounded-lg border border-primary/20">
+          <span class="material-symbols-outlined text-primary text-[18px] mt-0.5">info</span>
+          <p class="text-body-sm text-secondary">Hệ thống sẽ tự động gửi email xác nhận và mật khẩu tạm thời đến địa chỉ email đã nhập.</p>
+        </div>
+      </div>
+      <!-- Modal Footer -->
+      <div class="flex items-center justify-end gap-3 px-gutter py-4 border-t border-outline-variant bg-surface-container-low rounded-b-xl">
+        <button (click)="showAddModal = false"
+          class="px-5 py-2.5 border border-outline-variant rounded-lg text-secondary hover:bg-surface-container text-body-sm font-semibold transition-colors">
+          Hủy
+        </button>
+        <button (click)="submitAddUser()"
+          class="px-5 py-2.5 bg-primary text-on-primary rounded-lg text-body-sm font-semibold hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">person_add</span>
+          Tạo tài khoản
+        </button>
+      </div>
+    </div>
+  </div>
+}

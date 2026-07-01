@@ -1,1 +1,80 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Hanken Grotesk', sans-serif;
+  }
+  
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  
+  .glass-card {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+
+  :root {
+    /* Color Palette matching Stitch */
+    --color-primary: #006591;
+    --color-primary-hover: #004c6e;
+    --color-background: #f7f9fb;
+    
+    /* Shapes & Borders */
+    --border-radius-base: 4px;
+    
+    /* Override Ant Design specific variables */
+    --ant-primary-color: var(--color-primary);
+    --ant-primary-color-hover: var(--color-primary-hover);
+    --ant-border-radius-base: var(--border-radius-base);
+  }
+}
+
+/* 
+  Override Ant Design components to make them softer and use our theme variables 
+*/
+/* Buttons */
+.ant-btn {
+  border-radius: var(--border-radius-base) !important;
+  @apply transition-all duration-200 shadow-sm font-sans font-medium;
+}
+
+.ant-btn-primary {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+  background-color: var(--color-primary-hover) !important;
+  border-color: var(--color-primary-hover) !important;
+  @apply shadow-md transform -translate-y-px;
+}
+
+/* Inputs & Pickers */
+.ant-input,
+.ant-picker {
+  border-radius: var(--border-radius-base) !important;
+  @apply transition-all duration-200 font-sans;
+}
+
+.ant-input:hover, .ant-input:focus,
+.ant-picker:hover, .ant-picker-focused {
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 0 0 2px rgba(0, 101, 145, 0.1) !important; /* using primary color rgb */
+}
+
+.ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-start .ant-picker-cell-inner,
+.ant-picker-cell-in-view.ant-picker-cell-range-end .ant-picker-cell-inner {
+  background-color: var(--color-primary) !important;
+}
+
+/* Cards */
+.ant-card {
+  @apply rounded-xl shadow-sm border border-gray-100;
+}
