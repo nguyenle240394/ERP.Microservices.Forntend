@@ -2,7 +2,7 @@
   <!-- Login Container -->
   <main class="w-full max-w-6xl bg-surface-container-lowest rounded-xl overflow-hidden shadow-[0px_4px_20px_rgba(0,0,0,0.04)] flex flex-col md:flex-row min-h-[650px]">
     <!-- Left Side: Form -->
-    <section class="w-full md:w-1/2 p-margin-desktop md:p-12 flex flex-col justify-between">
+    <section class="w-full md:w-1/2 p-margin-mobile md:p-12 flex flex-col justify-between">
       <div>
         <!-- Brand Anchor Logo -->
         <div class="mb-12 flex items-center gap-3">
@@ -65,9 +65,9 @@
           <span class="font-body-sm text-body-sm text-outline">Hoặc đăng nhập với</span>
           <div class="flex-grow h-px bg-outline-variant"></div>
         </div>
-        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
           <!-- Google Custom Button -->
-          <div class="relative w-full group overflow-hidden border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
+          <div class="relative w-full min-w-0 group overflow-hidden border border-outline-variant rounded-lg hover:bg-surface-container-high transition-colors">
             <!-- Custom UI Button -->
             <button class="w-full flex items-center justify-center gap-2 py-3 px-4 font-label-md text-label-md text-on-surface">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" class="w-5 h-5">
@@ -82,12 +82,12 @@
             <!-- Invisible Google Button Overlay -->
             @if (isBrowser) {
   <div class="absolute inset-0 opacity-0 z-10 flex items-center justify-center overflow-hidden [&>div]:w-full [&>div]:h-full cursor-pointer [&_iframe]:w-full [&_iframe]:h-full">
-    <asl-google-signin-button type="standard" size="large" theme="outline" text="signin_with" [width]="400"></asl-google-signin-button>
+    <asl-google-signin-button type="standard" size="large" theme="outline" text="signin_with"></asl-google-signin-button>
   </div>
 }
           </div>
           <!-- Facebook Button -->
-          <button class="flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
+          <button class="w-full flex items-center justify-center gap-2 py-3 px-4 border border-outline-variant rounded-lg font-label-md text-label-md text-on-surface hover:bg-surface-container-high transition-colors">
             <span class="material-symbols-outlined text-[#1877F2]" data-icon="facebook">face_nod</span>
             Facebook
           </button>
