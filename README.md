@@ -175,3 +175,9 @@ g-zorro-antd with dynamic theming support (CSS variables).
   - Added User Groups component for displaying, searching, and paginating Identity Roles.
   - Setup API proxy to resolve CORS during local development.
   - Added environment configurations and routes for User Groups page.
+ 
+  
+ # #   U p d a t e   2 0 2 6 - 0 7 - 0 3   2 3 : 3 0 : 1 5  
+ -   * * C h a n g e s   M a d e * * :   C o n f i g u r e d   N g i n x   a s   a   r e v e r s e   p r o x y   f o r   A P I   e n d p o i n t s   a n d   r e p l a c e d   c u s t o m   G o o g l e   s i g n - i n   U I   w i t h   t h e   n a t i v e   G o o g l e   I d e n t i t y   S e r v i c e s   b u t t o n .  
+ -   * * F e a t u r e s   I m p l e m e n t e d * * :   R e s o l v e d   C O R S   a n d   G o o g l e   O A u t h   o r i g i n   m i s m a t c h   i s s u e s   i n   t h e   D o c k e r   e n v i r o n m e n t .  
+ 
