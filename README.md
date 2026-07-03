@@ -168,3 +168,10 @@ g-zorro-antd with dynamic theming support (CSS variables).
 - **Dockerization:** Created a Dockerfile to build the Angular/Nx frontend.
 - **Nginx Configuration:** Customized Nginx configuration (`nginx.conf`) to properly serve the frontend and support Angular Prerender/SSR fallback.
 - **Nx Configuration:** Modified `apps/host/project.json` to support the deployment and build process.
+
+## Update [2026-07-03 16:42:42]
+- **Description:** Implemented User Groups management UI, resolving API linting errors, and configuring API proxy.
+- **Features Implemented:**
+  - Added User Groups component for displaying, searching, and paginating Identity Roles.
+  - Setup API proxy to resolve CORS during local development.
+  - Added environment configurations and routes for User Groups page.
