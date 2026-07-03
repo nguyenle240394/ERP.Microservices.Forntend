@@ -28,6 +28,14 @@ export const appRoutes: Route[] = [
             loadComponent: () => import('./pages/user-management/user-accounts/user-accounts.component').then(m => m.UserAccountsComponent),
           },
           {
+            path: 'groups',
+            loadComponent: () => import('./pages/user-management/user-groups/user-groups.component').then(m => m.UserGroupsComponent),
+          },
+          {
+            path: 'roles',
+            loadComponent: () => import('./pages/user-management/user-groups/user-groups.component').then(m => m.UserGroupsComponent),
+          },
+          {
             path: '',
             redirectTo: 'accounts',
             pathMatch: 'full',
